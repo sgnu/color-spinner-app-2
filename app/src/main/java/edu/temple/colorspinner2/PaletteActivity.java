@@ -2,6 +2,7 @@ package edu.temple.colorspinner2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,14 +26,21 @@ public class PaletteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         spinner = findViewById(R.id.spinner);
-        ColorAdapter adapter = new ColorAdapter(PaletteActivity.this, android.R.layout.simple_spinner_dropdown_item, colors);
+        final ColorAdapter adapter = new ColorAdapter(PaletteActivity.this, android.R.layout.simple_spinner_dropdown_item, colors);
 
         spinner.setAdapter(adapter);
+        //  Prevent "selecting" the first option on initialization
+        spinner.setSelection(0, false);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Intent launchActivityIntent = new Intent(PaletteActivity.this, CanvasActivity.class);
+                String color = (String) adapter.getItem(position);
 
+                //  Store key-value pair in the intent
+                launchActivityIntent.putExtra("COLOR", color);
+                startActivity(launchActivityIntent);
             }
 
             @Override
