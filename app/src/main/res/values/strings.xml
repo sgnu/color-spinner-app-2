@@ -1,17 +1,17 @@
 <resources>
     <string name="app_name">ColorSpinner2</string>
     <string-array name="colors">
-        <string name="white">WHITE</string>
-        <string name="magenta">MAGENTA</string>
-        <string name="blue">BLUE</string>
-        <string name="black">BLACK</string>
-        <string name="red">RED</string>
-        <string name="cyan">CYAN</string>
-        <string name="yellow">YELLOW</string>
-        <string name="green">GREEN</string>
-        <string name="maroon">MAROON</string>
-        <string name="purple">PURPLE</string>
-        <string name="olive">OLIVE</string>
+        <item name="white">White</item>
+        <item name="magenta">Magenta</item>
+        <item name="blue">Blue</item>
+        <item name="black">Black</item>
+        <item name="red">Red</item>
+        <item name="cyan">Cyan</item>
+        <item name="yellow">Yellow</item>
+        <item name="green">Green</item>
+        <item name="maroon">Maroon</item>
+        <item name="purple">Purple</item>
+        <item name="olive">Olive</item>
     </string-array>
 
 </resources>

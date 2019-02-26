@@ -18,7 +18,8 @@ import android.widget.TextView;
 public class PaletteActivity extends AppCompatActivity {
 
     Spinner spinner;
-    String[] colors;
+    String[] colors;        //  Localized names for colors
+    String[] colorCodes;    //  Color words that Java's Color object can parse
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +27,10 @@ public class PaletteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         colors = getResources().getStringArray(R.array.colors);
+        colorCodes = getResources().getStringArray(R.array.colorCodes);
 
         spinner = findViewById(R.id.spinner);
-        final ColorAdapter adapter = new ColorAdapter(PaletteActivity.this, android.R.layout.simple_spinner_dropdown_item, colors);
+        final ColorAdapter adapter = new ColorAdapter(PaletteActivity.this, android.R.layout.simple_spinner_dropdown_item, colors, colorCodes);
 
         spinner.setAdapter(adapter);
         //  Prevent "selecting" the first option on initialization
@@ -38,7 +40,7 @@ public class PaletteActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Intent launchActivityIntent = new Intent(PaletteActivity.this, CanvasActivity.class);
-                String color = (String) adapter.getItem(position);
+                String color = (String) adapter.getColor(position);
 
                 //  Store key-value pair in the intent
                 launchActivityIntent.putExtra("COLOR", color);
@@ -55,10 +57,12 @@ public class PaletteActivity extends AppCompatActivity {
     public class ColorAdapter extends BaseAdapter {
         private Context context;
         private String[] objects;
+        private String[] colorCodes;
 
-        public ColorAdapter(Context context, int textViewResourceId, String[] objects) {
+        public ColorAdapter(Context context, int textViewResourceId, String[] objects, String[] colorCodes) {
             this.context = context;
             this.objects = objects;
+            this.colorCodes = colorCodes;
         }
 
         @Override
@@ -71,6 +75,8 @@ public class PaletteActivity extends AppCompatActivity {
             return objects[position];
         }
 
+        public Object getColor(int position) {return colorCodes[position];}
+
         @Override
         public long getItemId(int position) {
             return position;
@@ -82,11 +88,11 @@ public class PaletteActivity extends AppCompatActivity {
                 convertView = LayoutInflater.from(context).inflate(R.layout.spinner_layout, parent, false);
             }
             CharSequence currentItem = (CharSequence) getItem(position);
-            String color = (String) getItem(position);
+            String colorCode = (String) getColor(position);
 
             TextView textViewItemName = convertView.findViewById(R.id.text_view_item_name);
             textViewItemName.setText(currentItem);
-            textViewItemName.setBackgroundColor(Color.parseColor(color));
+            textViewItemName.setBackgroundColor(Color.parseColor(colorCode));
             return convertView;
         }
     }
