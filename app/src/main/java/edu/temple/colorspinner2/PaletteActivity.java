@@ -18,12 +18,14 @@ import android.widget.TextView;
 public class PaletteActivity extends AppCompatActivity {
 
     Spinner spinner;
-    String[] colors = {"WHITE", "MAGENTA", "BLUE", "BLACK", "RED", "CYAN", "YELLOW", "GREEN", "MAROON", "PURPLE", "OLIVE"};
+    String[] colors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        colors = getResources().getStringArray(R.array.colors);
 
         spinner = findViewById(R.id.spinner);
         final ColorAdapter adapter = new ColorAdapter(PaletteActivity.this, android.R.layout.simple_spinner_dropdown_item, colors);
